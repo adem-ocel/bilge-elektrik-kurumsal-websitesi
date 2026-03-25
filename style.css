@@ -105,6 +105,93 @@ body {
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
 }
 
+/* Custom File Input Styling */
+.file-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.file-input-wrapper input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.file-input-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #0f172a;
+    border: 1px dashed #1e293b;
+    color: #94a3b8;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.file-input-wrapper:hover .file-input-label {
+    border-color: var(--gold);
+    color: white;
+}
+
+.file-input-wrapper input[type="file"]:focus + .file-input-label {
+    border-color: var(--gold);
+    border-style: solid;
+}
+
+.file-input-label i {
+    font-size: 1.25rem;
+    color: var(--gold);
+}
+
+.file-name-display {
+    display: none;
+    margin-top: 12px;
+    text-align: left;
+    position: relative;
+    z-index: 5;
+}
+
+.file-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.file-item {
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.file-remove {
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #ef4444;
+    transition: color 0.3s;
+}
+
+.file-remove:hover {
+    color: #b91c1c;
+}
+
 /* Career Page Specific */
 .job-card {
     background: #0f172a;

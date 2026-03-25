@@ -132,7 +132,7 @@
             <h3 class="font-brand text-3xl text-white mb-12 text-center uppercase tracking-widest">Çözüm Ortağımız <span
                     class="gold-gradient">Olun</span></h3>
             <div class="bg-[#0f172a] p-8 md:p-12 rounded-2xl shadow-2xl border border-gray-800">
-                <form id="partnerForm" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <form id="partnerForm" class="grid grid-cols-1 md:grid-cols-2 gap-8" enctype="multipart/form-data">
                     <div>
                         <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-3">Firma Adı</label>
                         <input type="text" class="input-style w-full" placeholder="Şirket Ünvanı" required>
@@ -162,6 +162,17 @@
                             Ekip Kapasitesi</label>
                         <textarea class="input-style w-full h-40 resize-none text-sm"
                             placeholder="Daha önce yer aldığınız projelerden ve ekip sayınızdan kısaca bahsedin..."></textarea>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-3">Şirket Profili / Portfolyo Yükle (Opsiyonel)</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="attachment" name="attachment" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple>
+                            <div class="file-input-label">
+                                <i class="fas fa-briefcase"></i>
+                                <span>Dosya(ları) Seç veya Sürükle</span>
+                            </div>
+                            <div class="file-name-display"></div>
+                        </div>
                     </div>
                     <div class="md:col-span-2 flex items-center justify-between">
                         <button type="submit"

@@ -256,7 +256,7 @@
                 <div
                     class="bg-[#0a0f1c] border border-gray-800 p-8 md:p-10 rounded-xl shadow-2xl transition-all hover:border-gray-700">
                     <h3 class="text-2xl text-white font-brand mb-8 uppercase tracking-widest">Hızlı Mesaj</h3>
-                    <form id="contactForm" class="space-y-6">
+                    <form id="contactForm" class="space-y-6" enctype="multipart/form-data">
                         <div>
                             <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-2">Adınız
                                 Soyadınız</label>
@@ -279,6 +279,18 @@
                             <textarea id="message" rows="5" required
                                 class="w-full bg-[#0f172a] border border-gray-700 rounded-md py-3.5 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-[#d4af37] transition-all resize-none"
                                 placeholder="Talebinizden bahsedin..."></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-2">Dosya Ekleri (Opsiyonel)</label>
+                            <div class="file-input-wrapper">
+                                <input type="file" id="attachment" name="attachment" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple>
+                                <div class="file-input-label">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <span>Dosya(ları) Seç veya Sürükle</span>
+                                </div>
+                                <div class="file-name-display"></div>
+                            </div>
                         </div>
 
                         <button type="submit"

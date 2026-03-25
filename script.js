@@ -61,6 +61,84 @@ function handleFormSubmit(formId, successMessage) {
     const form = document.getElementById(formId);
     if (!form) return;
     
+    // File input and UI elements
+    const fileInput = form.querySelector('input[type="file"]');
+    const fileLabel = form.querySelector('.file-input-label');
+    const fileNameDisplay = form.querySelector('.file-name-display');
+    
+    // File accumulator
+    let dataTransfer = new DataTransfer();
+
+    // File input change listener for UI update
+    if (fileInput) {
+        fileInput.addEventListener('change', (e) => {
+            const files = e.target.files;
+            
+            // Add new files to our DataTransfer object
+            for (let i = 0; i < files.length; i++) {
+                // Prevent duplicate files based on name and size
+                const fileExists = Array.from(dataTransfer.files).some(f => f.name === files[i].name && f.size === files[i].size);
+                if (!fileExists) {
+                    dataTransfer.items.add(files[i]);
+                }
+            }
+            
+            // Update input files with accumulated
+            fileInput.files = dataTransfer.files;
+            
+            renderFileList();
+        });
+        
+        function renderFileList() {
+            if (dataTransfer.files.length > 0) {
+                fileNameDisplay.style.display = 'block';
+                let html = '<div class="file-list">';
+                Array.from(dataTransfer.files).forEach((file, index) => {
+                    html += `
+                        <div class="file-item">
+                            <i class="fas fa-file-alt"></i> ${file.name}
+                            <i class="fas fa-times file-remove" data-index="${index}"></i>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                fileNameDisplay.innerHTML = html;
+                
+                if (fileLabel) {
+                    fileLabel.style.borderColor = 'var(--gold)';
+                    fileLabel.style.borderStyle = 'solid';
+                }
+                
+                // Add remove listeners
+                const removeBtns = fileNameDisplay.querySelectorAll('.file-remove');
+                removeBtns.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        const index = parseInt(e.currentTarget.getAttribute('data-index'));
+                        const newDataTransfer = new DataTransfer();
+                        
+                        Array.from(dataTransfer.files).forEach((f, i) => {
+                            if (i !== index) newDataTransfer.items.add(f);
+                        });
+                        
+                        dataTransfer = newDataTransfer;
+                        fileInput.files = dataTransfer.files;
+                        renderFileList();
+                    });
+                });
+            } else {
+                fileNameDisplay.style.display = 'none';
+                fileNameDisplay.innerHTML = '';
+                if (fileLabel) {
+                    fileLabel.style.borderColor = '';
+                    fileLabel.style.borderStyle = '';
+                }
+            }
+        }
+    }
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -72,12 +150,13 @@ function handleFormSubmit(formId, successMessage) {
         btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> GÖNDERİLİYOR...';
         btn.classList.add('opacity-75', 'cursor-not-allowed');
         
-        // Form verilerini otomatik topla (Şık Türkçe Etiketlerle)
-        const payload = {};
+        // Form verilerini otomatik topla (FormData kullanarak)
+        const formData = new FormData();
         const inputs = form.querySelectorAll('input, select, textarea');
         
         inputs.forEach(input => {
-            // Label metnini bulmaya çalış, yoksa placeholder veya ID kullan
+            if (input.type === 'file') return; // Dosyaları ayrı ekleyeceğiz
+
             let labelText = "";
             const label = form.querySelector(`label[for="${input.id}"]`) || input.closest('div')?.querySelector('label');
             
@@ -87,15 +166,23 @@ function handleFormSubmit(formId, successMessage) {
                 labelText = input.placeholder || input.id || "Alan";
             }
 
-            // Teknik isimleri temize çek
             labelText = labelText.charAt(0).toUpperCase() + labelText.slice(1);
             
             if (input.type === 'checkbox' || input.type === 'radio') {
-                if (input.checked) payload[labelText] = input.value || 'Evet';
+                if (input.checked) formData.append(labelText, input.value || 'Evet');
             } else if (input.value.trim() !== '') {
-                payload[labelText] = input.value.trim();
+                formData.append(labelText, input.value.trim());
             }
         });
+
+        // Çoklu dosya eklerini benzersiz anahtarlarla ekle (attachment1, attachment2, ...)
+        if (fileInput && fileInput.files.length > 0) {
+            for (let i = 0; i < fileInput.files.length; i++) {
+                // FormSubmit çoklu dosya için benzersiz anahtarlar (label) bekleyebilir
+                const key = i === 0 ? "attachment" : `attachment${i + 1}`;
+                formData.append(key, fileInput.files[i]);
+            }
+        }
 
         // FormSubmit Özel Alanları & Meta Veriler
         let subjectName = "Yeni Bildirim";
@@ -104,38 +191,39 @@ function handleFormSubmit(formId, successMessage) {
         if (formId === 'supplierForm') subjectName = "Yeni Tedarikçi Başvurusu";
         if (formId === 'partnerForm') subjectName = "Yeni Partnerlik Başvurusu";
 
-        payload['_subject'] = subjectName;
-        payload['_template'] = 'table'; // E-postada çok daha şık bir tablo tasarımı sağlar
-        payload['_captcha'] = 'false'; // AJAX kullanımında Captcha'yı devre dışı bırakır
+        formData.append('_subject', subjectName);
+        formData.append('_template', 'table');
+        formData.append('_captcha', 'false');
         
-        // Ek Bilgi
         const now = new Date();
         const simpleDate = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-        payload['Mesaj Tarihi'] = simpleDate;
+        formData.append('Mesaj Tarihi', simpleDate);
         
         try {
-            const response = await fetch("https://formsubmit.co/ajax/bilge.elektrik0@gmail.com", {
+            // Standart endpoint'e gönderiyoruz ancak fetch kullanarak sayfa yenilenmesini engelliyoruz.
+            // Bu yöntem, dosya eklerinin (/ajax/ kısıtı olmadan) en güvenli şekilde iletilmesini sağlar.
+            const response = await fetch("https://formsubmit.co/bilge.elektrik0@gmail.com", {
                 method: "POST",
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(payload)
+                body: formData
             });
             
-            const result = await response.json();
-            
-            if (response.ok && result.success) {
+            // Standart endpoint 302 redirect veya success dönebilir
+            // fetch redirectleri takip eder (default: follow)
+            if (response.ok) {
                 showNotification(successMessage, 'success');
                 form.reset();
+                if (fileInput) {
+                    dataTransfer = new DataTransfer();
+                    fileInput.files = dataTransfer.files;
+                    renderFileList();
+                }
             } else {
-                throw new Error(result.message || 'Form gönderilemedi.');
+                throw new Error('Form gönderilemedi.');
             }
         } catch (error) {
             console.error("Form Gönderim Hatası:", error);
             showNotification('Bir hata oluştu. Lütfen bağlantınızı kontrol edip tekrar deneyin.', 'error');
         } finally {
-            // Restore button
             btn.disabled = false;
             btn.innerHTML = originalText;
             btn.classList.remove('opacity-75', 'cursor-not-allowed');

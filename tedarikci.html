@@ -71,7 +71,7 @@
     <section class="py-24 bg-[#0a0f1c]">
         <div class="container mx-auto px-6 max-w-4xl">
             <div class="bg-black/50 p-8 md:p-12 rounded-2xl border border-gray-800 shadow-2xl">
-                <form id="supplierForm" class="space-y-8">
+                <form id="supplierForm" class="space-y-8" enctype="multipart/form-data">
                     <div>
                         <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-3">Firma Adı</label>
                         <input type="text" class="input-style" placeholder="Örn: Bilge Mühendislik LTD." required>
@@ -91,6 +91,18 @@
                     <div>
                         <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-3">Mesaj / Tanıtım</label>
                         <textarea class="input-style h-40 resize-none" placeholder="Üretim kapasitenizden veya sunduğunuz avantajlardan bahsedin..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-3">Katalog / Ürün Listesi Yükle (Opsiyonel)</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="attachment" name="attachment" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple>
+                            <div class="file-input-label">
+                                <i class="fas fa-file-invoice"></i>
+                                <span>Dosya(ları) Seç veya Sürükle</span>
+                            </div>
+                            <div class="file-name-display"></div>
+                        </div>
                     </div>
 
                     <button type="submit" class="w-full py-5 bg-gold-gradient text-black font-black uppercase tracking-[0.3em] hover:brightness-110 transition shadow-xl shadow-[#d4af37]/10">
