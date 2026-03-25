@@ -32,7 +32,12 @@ if (menuToggle && mobileMenu) {
 // Premium Notification System
 function showNotification(message, type = 'success') {
     const toast = document.createElement('div');
+    const role = type === 'success' ? 'status' : 'alert';
+    const ariaLive = type === 'success' ? 'polite' : 'assertive';
+    
     toast.className = `fixed top-4 right-4 z-[9999] px-6 py-4 rounded-lg shadow-2xl transform transition-all duration-500 translate-x-full opacity-0 flex items-center space-x-3 backdrop-blur-md border ${type === 'success' ? 'bg-[#0f172a]/95 border-[#d4af37]' : 'bg-red-900/95 border-red-500'}`;
+    toast.setAttribute('role', role);
+    toast.setAttribute('aria-live', ariaLive);
     
     const icon = type === 'success' 
         ? '<i class="fas fa-check-circle text-[#d4af37] text-xl"></i>' 
@@ -101,8 +106,8 @@ function handleFormSubmit(formId, successMessage) {
                 Array.from(dataTransfer.files).forEach((file, index) => {
                     html += `
                         <div class="file-item">
-                            <i class="fas fa-file-alt"></i> ${file.name}
-                            <i class="fas fa-times file-remove" data-index="${index}"></i>
+                            <i class="fas fa-file-alt" aria-hidden="true"></i> ${file.name}
+                            <i class="fas fa-times file-remove" data-index="${index}" role="button" aria-label="Dosyayı kaldır" tabindex="0"></i>
                         </div>
                     `;
                 });
@@ -152,7 +157,8 @@ function handleFormSubmit(formId, successMessage) {
         
         // Loading state
         btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> GÖNDERİLİYOR...';
+        btn.setAttribute('aria-busy', 'true');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2" aria-hidden="true"></i> GÖNDERİLİYOR...';
         btn.classList.add('opacity-75', 'cursor-not-allowed');
         
         // Form verilerini otomatik topla (FormData kullanarak)
@@ -230,6 +236,7 @@ function handleFormSubmit(formId, successMessage) {
             showNotification('Bir hata oluştu. Lütfen bağlantınızı kontrol edip tekrar deneyin.', 'error');
         } finally {
             btn.disabled = false;
+            btn.removeAttribute('aria-busy');
             btn.innerHTML = originalText;
             btn.classList.remove('opacity-75', 'cursor-not-allowed');
         }

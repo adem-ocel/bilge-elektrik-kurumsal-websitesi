@@ -5,12 +5,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kariyer | BİLGE ELEKTRİK</title>
+    <meta name="description" content="Bilge Elektrik ekibine katılın. Elektrik ustası, kalfa, çırak, ofis elemanı ve stajyer açık pozisyonları için kariyer başvurusu yapın.">
+    
+    <!-- SEO & Meta Tags -->
+    <link rel="canonical" href="https://bilgeelektrik.online/kariyer.html" />
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Kariyer | BİLGE ELEKTRİK">
+    <meta property="og:description" content="Bilge Elektrik ekibine katılın. Elektrik ustası, kalfa, çırak, ofis elemanı ve stajyer açık pozisyonları için kariyer başvurusu yapın.">
+    <meta property="og:url" content="https://bilgeelektrik.online/kariyer.html">
+    <meta property="og:image" content="https://bilgeelektrik.online/assets/og-image.jpg">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kariyer | BİLGE ELEKTRİK">
+    <meta name="twitter:description" content="Bilge Elektrik kariyer fırsatları ve iş ilanları...">
+    <meta name="twitter:image" content="https://bilgeelektrik.online/assets/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;600;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Ana Sayfa",
+        "item": "https://bilgeelektrik.online/"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Kariyer",
+        "item": "https://bilgeelektrik.online/kariyer.html"
+      }]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "JobPosting",
+      "title": "Genel Başvuru - Elektrik Personeli",
+      "description": "Bilge Elektrik olarak, endüstriyel tesisler ve altyapı projelerinde bizimle çalışacak Elektrik Ustası, Kalfa, Çırak, Ofis Elemanı ve Stajyer arayışımız her zaman sürmektedir. Ekibimize katılarak prestijli projelerde yer alma fırsatı yakalayın.",
+      "identifier": {
+        "@type": "PropertyValue",
+        "name": "Bilge Elektrik",
+        "value": "genel-basvuru"
+      },
+      "datePosted": "2026-03-25",
+      "validThrough": "2026-12-31",
+      "employmentType": ["FULL_TIME", "INTERN"],
+      "hiringOrganization": {
+        "@type": "Organization",
+        "name": "Bilge Elektrik",
+        "sameAs": "https://bilgeelektrik.online/",
+        "logo": "https://bilgeelektrik.online/assets/og-image.jpg"
+      },
+      "jobLocation": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Hacıosman Mahallesi Bağdat Caddesi No: 345/B",
+          "addressLocality": "Körfez",
+          "addressRegion": "Kocaeli",
+          "postalCode": "41400",
+          "addressCountry": "TR"
+        }
+      }
+    }
+    </script>
 </head>
 
 <body>
@@ -18,13 +91,13 @@
     <!-- Header -->
     <nav class="fixed w-full z-50 glass-header py-4">
         <div class="container mx-auto px-6 flex justify-between items-center text-white">
-            <a href="index.html" class="group cursor-pointer">
-                <h1 class="font-brand text-2xl font-black gold-gradient tracking-tighter transition-transform group-hover:scale-105">
+            <a href="index.html" class="group cursor-pointer order-2 md:order-1">
+                <div class="font-brand text-2xl font-black gold-gradient tracking-tighter transition-transform group-hover:scale-105">
                     BİLGE ELEKTRİK
-                </h1>
+                </div>
             </a>
-            <a href="index.html" class="text-xs font-bold uppercase tracking-widest hover:text-[#d4af37] transition">
-                <i class="fas fa-arrow-left mr-2 font-light"></i> ANA SAYFAYA DÖN
+            <a href="index.html" class="text-xs font-bold uppercase tracking-widest hover:text-[#d4af37] transition order-1 md:order-2">
+                <i class="fas fa-arrow-left mr-2 font-light" aria-hidden="true"></i> ANA SAYFAYA DÖN
             </a>
         </div>
     </nav>
@@ -32,8 +105,8 @@
     <!-- Hero -->
     <section class="pt-40 pb-20 bg-[#050a18] relative overflow-hidden text-center">
         <div class="container mx-auto px-6">
-            <h2 class="text-[#d4af37] font-bold tracking-[0.5em] uppercase mb-4">Geleceği Birlikte Kuralım</h2>
-            <h3 class="font-brand text-5xl md:text-6xl text-white mb-8">Takım <span class="gold-gradient">Arkadaşımız Olun</span></h3>
+            <p class="text-[#d4af37] font-bold tracking-[0.5em] uppercase mb-4">Geleceği Birlikte Kuralım</p>
+            <h1 class="font-brand text-5xl md:text-6xl text-white mb-8">Takım <span class="gold-gradient">Arkadaşımız Olun</span></h1>
             <p class="text-gray-400 max-w-3xl mx-auto font-light leading-relaxed mb-12">
                 Bilge Elektrik ailesi; enerjik, yenilikçi ve sürekli öğrenmeye açık profesyonellerden oluşur. Sektörün en prestijli projelerinde kendinizi geliştirmek için doğru yerdesiniz.
             </p>
@@ -54,7 +127,7 @@
                 <!-- Feature 1 -->
                 <div class="feature-card">
                     <div class="icon-box">
-                        <i class="fas fa-graduation-cap"></i>
+                        <i class="fas fa-graduation-cap" aria-hidden="true"></i>
                     </div>
                     <h5 class="text-white font-bold text-xl mb-4">Sürekli Gelişim</h5>
                     <p class="text-sm text-gray-500 font-light leading-relaxed">
@@ -65,7 +138,7 @@
                 <!-- Feature 2 -->
                 <div class="feature-card">
                     <div class="icon-box">
-                        <i class="fas fa-shield-alt"></i>
+                        <i class="fas fa-shield-alt" aria-hidden="true"></i>
                     </div>
                     <h5 class="text-white font-bold text-xl mb-4">Güvenli Çalışma</h5>
                     <p class="text-sm text-gray-500 font-light leading-relaxed">
@@ -76,7 +149,7 @@
                 <!-- Feature 3 -->
                 <div class="feature-card">
                     <div class="icon-box">
-                        <i class="fas fa-trophy"></i>
+                        <i class="fas fa-trophy" aria-hidden="true"></i>
                     </div>
                     <h5 class="text-white font-bold text-xl mb-4">Prestijli Projeler</h5>
                     <p class="text-sm text-gray-500 font-light leading-relaxed">
@@ -143,7 +216,7 @@
                 <div class="job-card border-dashed border-gray-700 bg-transparent flex flex-col items-center justify-center text-center">
                     <span class="text-green-500/50 text-[9px] font-bold uppercase tracking-widest mb-4"><i
                             class="fas fa-clock mr-1"></i> SÜREKLİ AÇIK</span>
-                    <i class="fas fa-user-plus text-2xl text-gray-700 mb-4"></i>
+                    <i class="fas fa-user-plus text-2xl text-gray-700 mb-4" aria-hidden="true"></i>
                     <h4 class="text-gray-500 font-bold mb-2">Genel Başvuru</h4>
                     <p class="text-[10px] text-gray-700 uppercase">Özgeçmişinizi her zaman bekliyoruz</p>
                 </div>
@@ -154,7 +227,7 @@
                     Şirket veya profesyonel saha ekibi olarak iş birliği yapmak mı istiyorsunuz?<br>
                     <a href="partnerlik.html"
                         class="inline-block mt-4 text-[#d4af37] border-b border-[#d4af37]/30 hover:border-[#d4af37] transition-all font-bold">
-                        PARTNERLİK ÇÖZÜMLERİ VE İŞ ORTAKLIĞI İÇİN TIKLAYIN <i class="fas fa-chevron-right ml-2 text-[8px]"></i>
+                        PARTNERLİK ÇÖZÜMLERİ VE İŞ ORTAKLIĞI İÇİN TIKLAYIN <i class="fas fa-chevron-right ml-2 text-[8px]" aria-hidden="true"></i>
                     </a>
                 </p>
             </div>
@@ -168,20 +241,20 @@
             <div class="bg-[#0f172a] p-8 md:p-12 rounded-2xl shadow-2xl border border-gray-800">
                 <form id="careerForm" class="grid grid-cols-1 md:grid-cols-2 gap-8" enctype="multipart/form-data">
                     <div>
-                        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-3">Adınız Soyadınız</label>
-                        <input type="text" class="input-style" placeholder="Ad Soyad" required>
+                        <label for="name" class="block text-[10px] text-gray-400 uppercase tracking-widest mb-3">Adınız Soyadınız</label>
+                        <input id="name" type="text" class="input-style" placeholder="Ad Soyad" required aria-required="true" autocomplete="name">
                     </div>
                     <div>
-                        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-3">Telefon</label>
-                        <input type="tel" class="input-style" placeholder="+90" required>
+                        <label for="phone" class="block text-[10px] text-gray-400 uppercase tracking-widest mb-3">Telefon</label>
+                        <input id="phone" type="tel" class="input-style" placeholder="+90" required aria-required="true" autocomplete="tel">
                     </div>
                     <div>
-                        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-3">E-Posta</label>
-                        <input type="email" class="input-style" placeholder="mail@örnek.com" required>
+                        <label for="email" class="block text-[10px] text-gray-400 uppercase tracking-widest mb-3">E-Posta</label>
+                        <input id="email" type="email" class="input-style" placeholder="mail@örnek.com" required aria-required="true" autocomplete="email">
                     </div>
                     <div>
-                        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-3">Başvuru Türü / Alanı</label>
-                        <select class="input-style cursor-pointer text-xs">
+                        <label for="position" class="block text-[10px] text-gray-400 uppercase tracking-widest mb-3">Başvuru Türü / Alanı</label>
+                        <select id="position" class="input-style cursor-pointer text-xs">
                             <optgroup label="Bireysel Başvuru">
                                 <option>Elektrik Ustası</option>
                                 <option>Kalfa / Çırak</option>
@@ -193,15 +266,15 @@
                         </select>
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-3">Mesaj & CV Özeti</label>
-                        <textarea class="input-style h-40 resize-none text-sm" placeholder="Kısaca kendinizden ve tecrübelerinizden bahsedin..."></textarea>
+                        <label for="message" class="block text-[10px] text-gray-400 uppercase tracking-widest mb-3">Mesaj & CV Özeti</label>
+                        <textarea id="message" class="input-style h-40 resize-none text-sm" placeholder="Kısaca kendinizden ve tecrübelerinizden bahsedin..."></textarea>
                     </div>
                     <div class="md:col-span-2">
-                        <label class="block text-[10px] text-gray-400 uppercase tracking-widest mb-3">CV / Özgeçmiş / Referans Yükle</label>
+                        <label for="attachment" class="block text-[10px] text-gray-400 uppercase tracking-widest mb-3">CV / Özgeçmiş / Referans Yükle</label>
                         <div class="file-input-wrapper">
-                            <input type="file" id="attachment" name="attachment" accept=".pdf,.doc,.docx" multiple required>
+                            <input type="file" id="attachment" name="attachment" accept=".pdf,.doc,.docx" multiple required aria-required="true">
                             <div class="file-input-label">
-                                <i class="fas fa-file-pdf"></i>
+                                <i class="fas fa-file-pdf" aria-hidden="true"></i>
                                 <span>Dosya(ları) Seçin veya Sürükleyin</span>
                             </div>
                             <div class="file-name-display"></div>
@@ -266,15 +339,15 @@
                     <h4 class="text-white font-brand text-lg mb-5 uppercase tracking-widest text-left">Bize Ulaşın</h4>
                     <div class="space-y-3 text-sm font-light text-left">
                         <div class="flex items-start space-x-3 text-xs">
-                            <i class="fas fa-map-marker-alt text-[#d4af37] mt-1 shrink-0"></i>
+                            <i class="fas fa-map-marker-alt text-[#d4af37] mt-1 shrink-0" aria-hidden="true"></i>
                             <span>Hacıosman Mahallesi Bağdat Caddesi No: 345/B Körfez, Kocaeli</span>
                         </div>
                         <div class="flex items-center space-x-3">
-                            <i class="fas fa-phone-alt text-[#d4af37]"></i>
+                            <i class="fas fa-phone-alt text-[#d4af37]" aria-hidden="true"></i>
                             <span>+90 537 868 45 51</span>
                         </div>
                         <div class="flex items-center space-x-3">
-                            <i class="fas fa-envelope text-[#d4af37]"></i>
+                            <i class="fas fa-envelope text-[#d4af37]" aria-hidden="true"></i>
                             <span>bilge.elektrik0@gmail.com</span>
                         </div>
                     </div>
@@ -307,7 +380,7 @@
         </div>
         <div
             class="relative w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center text-white text-3xl shadow-2xl transition-transform group-hover:scale-110">
-            <i class="fab fa-whatsapp"></i>
+            <i class="fab fa-whatsapp" aria-hidden="true"></i>
         </div>
         <span
             class="absolute right-20 top-1/2 -translate-y-1/2 bg-white text-black px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-xl pointer-events-none uppercase tracking-widest">
