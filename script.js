@@ -1,24 +1,29 @@
 // Mobile Menu Toggle
 const menuToggle = document.getElementById('menu-toggle');
-const menuClose = document.getElementById('menu-close');
 const mobileMenu = document.getElementById('mobile-menu');
 const navLinks = document.querySelectorAll('.mobile-nav-link');
 
-if (menuToggle && menuClose && mobileMenu) {
+if (menuToggle && mobileMenu) {
     function toggleMenu() {
+        const icon = menuToggle.querySelector('i');
         if (mobileMenu.classList.contains('mobile-menu-hidden')) {
             mobileMenu.classList.remove('mobile-menu-hidden');
             mobileMenu.classList.add('mobile-menu-visible');
-            document.body.style.overflow = 'hidden';
+            if (icon) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
         } else {
             mobileMenu.classList.add('mobile-menu-hidden');
             mobileMenu.classList.remove('mobile-menu-visible');
-            document.body.style.overflow = 'auto';
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
         }
     }
 
     menuToggle.addEventListener('click', toggleMenu);
-    menuClose.addEventListener('click', toggleMenu);
     if (navLinks) {
         navLinks.forEach(link => link.addEventListener('click', toggleMenu));
     }

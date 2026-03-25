@@ -20,7 +20,7 @@
     <!-- Navigation -->
     <nav class="fixed w-full z-50 glass-header py-4">
         <div class="container mx-auto px-6 flex justify-between items-center text-white">
-            <div class="group cursor-pointer">
+            <div class="group cursor-pointer order-2 md:order-1">
                 <h1
                     class="font-brand text-2xl md:text-3xl font-black gold-gradient tracking-tighter transition-transform group-hover:scale-105">
                     BİLGE ELEKTRİK
@@ -37,22 +37,19 @@
             </div>
 
             <!-- Mobile Toggle -->
-            <button id="menu-toggle" class="md:hidden text-2xl hover:text-[#d4af37] transition-colors"
+            <button id="menu-toggle" class="md:hidden text-2xl hover:text-[#d4af37] transition-colors order-1 md:order-3"
                 aria-label="Menüyü Aç/Kapat">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
 
-        <!-- Mobile Menu Overlay -->
+        <!-- Mobile Menu Dropdown -->
         <div id="mobile-menu"
-            class="fixed top-0 left-0 w-full h-screen bg-[#020617] z-40 mobile-menu-hidden flex flex-col items-center justify-center space-y-8 md:hidden">
-            <button id="menu-close" class="absolute top-6 right-6 text-3xl text-white">
-                <i class="fas fa-times"></i>
-            </button>
-            <a href="#hero" class="mobile-nav-link text-2xl font-brand gold-gradient">ANASAYFA</a>
-            <a href="#about" class="mobile-nav-link text-2xl font-brand gold-gradient">KURUMSAL</a>
-            <a href="#services" class="mobile-nav-link text-2xl font-brand gold-gradient">HİZMETLER</a>
-            <a href="#contact" class="mobile-nav-link text-2xl font-brand gold-gradient">İLETİŞİM</a>
+            class="absolute top-full left-0 w-full bg-[#020617]/95 backdrop-blur-md border-t border-[rgba(212,175,55,0.1)] shadow-[0_20px_40px_rgba(0,0,0,0.5)] z-40 mobile-menu-hidden flex flex-col px-6 py-2 md:hidden">
+            <a href="#hero" class="mobile-nav-link font-brand text-sm tracking-[0.2em] text-gray-300 hover:text-[#d4af37] hover:pl-3 border-b border-gray-800/50 py-4 transition-all duration-300 uppercase flex items-center"><i class="fas fa-chevron-right text-[10px] mr-3 opacity-50"></i> Ana Sayfa</a>
+            <a href="#about" class="mobile-nav-link font-brand text-sm tracking-[0.2em] text-gray-300 hover:text-[#d4af37] hover:pl-3 border-b border-gray-800/50 py-4 transition-all duration-300 uppercase flex items-center"><i class="fas fa-chevron-right text-[10px] mr-3 opacity-50"></i> Kurumsal</a>
+            <a href="#services" class="mobile-nav-link font-brand text-sm tracking-[0.2em] text-gray-300 hover:text-[#d4af37] hover:pl-3 border-b border-gray-800/50 py-4 transition-all duration-300 uppercase flex items-center"><i class="fas fa-chevron-right text-[10px] mr-3 opacity-50"></i> Uzmanlık</a>
+            <a href="#contact" class="mobile-nav-link font-brand text-sm tracking-[0.2em] text-gray-300 hover:text-[#d4af37] hover:pl-3 py-4 transition-all duration-300 uppercase flex items-center"><i class="fas fa-chevron-right text-[10px] mr-3 opacity-50"></i> İletişim</a>
         </div>
     </nav>
 

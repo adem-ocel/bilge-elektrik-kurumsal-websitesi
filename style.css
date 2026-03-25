@@ -77,14 +77,19 @@ body {
 }
 
 #mobile-menu {
-    transition: transform 0.3s ease-in-out;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: top;
 }
 
 .mobile-menu-hidden {
-    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
 }
 
 .mobile-menu-visible {
+    opacity: 1;
+    visibility: visible;
     transform: translateY(0);
 }
 
