@@ -24,24 +24,130 @@ if (menuToggle && menuClose && mobileMenu) {
     }
 }
 
-// Form Validation & Mock Submission
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+// Premium Notification System
+function showNotification(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `fixed top-4 right-4 z-[9999] px-6 py-4 rounded-lg shadow-2xl transform transition-all duration-500 translate-x-full opacity-0 flex items-center space-x-3 backdrop-blur-md border ${type === 'success' ? 'bg-[#0f172a]/95 border-[#d4af37]' : 'bg-red-900/95 border-red-500'}`;
+    
+    const icon = type === 'success' 
+        ? '<i class="fas fa-check-circle text-[#d4af37] text-xl"></i>' 
+        : '<i class="fas fa-exclamation-circle text-red-500 text-xl"></i>';
+        
+    toast.innerHTML = `
+        ${icon}
+        <p class="text-white text-sm font-medium tracking-wide">${message}</p>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    // Animate in
+    requestAnimationFrame(() => {
+        setTimeout(() => {
+            toast.classList.remove('translate-x-full', 'opacity-0');
+            toast.classList.add('translate-x-0', 'opacity-100');
+        }, 10);
+    });
+    
+    // Animate out
+    setTimeout(() => {
+        toast.classList.remove('translate-x-0', 'opacity-100');
+        toast.classList.add('translate-x-full', 'opacity-0');
+        setTimeout(() => toast.remove(), 500);
+    }, 4000);
+}
+
+// Universal Form Handler
+function handleFormSubmit(formId, successMessage) {
+    const form = document.getElementById(formId);
+    if (!form) return;
+    
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const name = document.getElementById('name').value;
-        const contactInfo = document.getElementById('contact_info').value;
-        const message = document.getElementById('message').value;
+        
+        const btn = form.querySelector('button[type="submit"]');
+        const originalText = btn.innerHTML;
+        
+        // Loading state
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> GÖNDERİLİYOR...';
+        btn.classList.add('opacity-75', 'cursor-not-allowed');
+        
+        // Form verilerini otomatik topla (Şık Türkçe Etiketlerle)
+        const payload = {};
+        const inputs = form.querySelectorAll('input, select, textarea');
+        
+        inputs.forEach(input => {
+            // Label metnini bulmaya çalış, yoksa placeholder veya ID kullan
+            let labelText = "";
+            const label = form.querySelector(`label[for="${input.id}"]`) || input.closest('div')?.querySelector('label');
+            
+            if (label) {
+                labelText = label.innerText.replace(":", "").trim();
+            } else {
+                labelText = input.placeholder || input.id || "Alan";
+            }
 
-        if (!name || !contactInfo || !message) {
-            alert('Lütfen tüm alanları doldurun.');
-            return;
+            // Teknik isimleri temize çek
+            labelText = labelText.charAt(0).toUpperCase() + labelText.slice(1);
+            
+            if (input.type === 'checkbox' || input.type === 'radio') {
+                if (input.checked) payload[labelText] = input.value || 'Evet';
+            } else if (input.value.trim() !== '') {
+                payload[labelText] = input.value.trim();
+            }
+        });
+
+        // FormSubmit Özel Alanları & Meta Veriler
+        let subjectName = "Yeni Bildirim";
+        if (formId === 'contactForm') subjectName = "İletişim Formu Mesajı";
+        if (formId === 'careerForm') subjectName = "Yeni Kariyer Başvurusu";
+        if (formId === 'supplierForm') subjectName = "Yeni Tedarikçi Başvurusu";
+        if (formId === 'partnerForm') subjectName = "Yeni Partnerlik Başvurusu";
+
+        payload['_subject'] = subjectName;
+        payload['_template'] = 'table'; // E-postada çok daha şık bir tablo tasarımı sağlar
+        payload['_captcha'] = 'false'; // AJAX kullanımında Captcha'yı devre dışı bırakır
+        
+        // Ek Bilgi
+        const now = new Date();
+        const simpleDate = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+        payload['Mesaj Tarihi'] = simpleDate;
+        
+        try {
+            const response = await fetch("https://formsubmit.co/ajax/bilge.elektrik0@gmail.com", {
+                method: "POST",
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok && result.success) {
+                showNotification(successMessage, 'success');
+                form.reset();
+            } else {
+                throw new Error(result.message || 'Form gönderilemedi.');
+            }
+        } catch (error) {
+            console.error("Form Gönderim Hatası:", error);
+            showNotification('Bir hata oluştu. Lütfen bağlantınızı kontrol edip tekrar deneyin.', 'error');
+        } finally {
+            // Restore button
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+            btn.classList.remove('opacity-75', 'cursor-not-allowed');
         }
-
-        alert(`Sayın ${name}, mesajınız alınmıştır. En kısa sürede sizinle iletişime geçeceğiz.`);
-        contactForm.reset();
     });
 }
+
+// Initialize all forms
+handleFormSubmit('contactForm', 'Mesajınız başarıyla iletildi. En kısa sürede size dönüş yapacağız.');
+handleFormSubmit('careerForm', 'Başvurunuz başarıyla alındı. İnsan kaynakları ekibimiz değerlendirecektir.');
+handleFormSubmit('supplierForm', 'Tedarikçi başvurunuz başarıyla sisteme kaydedildi.');
+handleFormSubmit('partnerForm', 'Partnerlik başvurunuz başarıyla alındı. Sizinle iletişime geçeceğiz.');
 
 // Smooth Scrolling for all internal links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -55,26 +161,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
-
-// Career Form Submission
-const careerForm = document.getElementById('careerForm');
-if (careerForm) {
-    careerForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Başvurunuz alındı. İnsan Kaynakları ekibimiz en kısa sürede sizinle iletişime geçecektir.');
-        this.reset();
-    });
-}
-
-// Supplier Form Submission
-const supplierForm = document.getElementById('supplierForm');
-if (supplierForm) {
-    supplierForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Başvurunuz sisteme kaydedildi. İlginiz için teşekkür ederiz.');
-        this.reset();
-    });
-}
 // Scroll Reveal Observer
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
