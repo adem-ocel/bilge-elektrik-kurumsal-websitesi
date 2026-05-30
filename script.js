@@ -35,12 +35,12 @@ function showNotification(message, type = 'success') {
     const role = type === 'success' ? 'status' : 'alert';
     const ariaLive = type === 'success' ? 'polite' : 'assertive';
     
-    toast.className = `fixed top-4 right-4 z-[9999] px-6 py-4 rounded-lg shadow-2xl transform transition-all duration-500 translate-x-full opacity-0 flex items-center space-x-3 backdrop-blur-md border ${type === 'success' ? 'bg-[#1a1a1a]/95 border-[#e63946]' : 'bg-red-900/95 border-red-500'}`;
+    toast.className = `fixed top-4 right-4 z-[9999] px-6 py-4 rounded-lg shadow-2xl transform transition-all duration-500 translate-x-full opacity-0 flex items-center space-x-3 backdrop-blur-md border ${type === 'success' ? 'bg-[#1a1a1a]/95 border-[#f97316]' : 'bg-red-900/95 border-red-500'}`;
     toast.setAttribute('role', role);
     toast.setAttribute('aria-live', ariaLive);
     
     const icon = type === 'success' 
-        ? '<i class="fas fa-check-circle text-[#e63946] text-xl"></i>' 
+        ? '<i class="fas fa-check-circle text-[#f97316] text-xl"></i>' 
         : '<i class="fas fa-exclamation-circle text-red-500 text-xl"></i>';
         
     toast.innerHTML = `
@@ -412,4 +412,5 @@ function updateWhatsappPosition() {
 
 window.addEventListener('scroll', updateWhatsappPosition);
 updateWhatsappPosition(); // Run on initial load
+
 
